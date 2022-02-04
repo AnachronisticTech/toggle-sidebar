@@ -5,32 +5,34 @@
 
 import * as vscode from 'vscode';
 
-let toggleSidebarStatusBarItem: vscode.StatusBarItem;
+let leftSidebarToggleBarItem: vscode.StatusBarItem;
+let rightSidebarToggleBarItem: vscode.StatusBarItem;
 
 export function activate({ subscriptions }: vscode.ExtensionContext) {
+    const leftSidebarToggleId = "toggleSidebars.toggleLeftPanel";
+    subscriptions.push(vscode.commands.registerCommand(leftSidebarToggleId, () => {
+        // vscode.commands.executeCommand("workbench.action.toggleSidebarVisibility");
+    }));
+    leftSidebarToggleBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1500);
+    leftSidebarToggleBarItem.command = leftSidebarToggleId;
+    subscriptions.push(leftSidebarToggleBarItem);
 
-	// register a command that is invoked when the status bar
-	// item is selected
-	const myCommandId = 'sample.showSelectionCount';
-	subscriptions.push(vscode.commands.registerCommand(myCommandId, () => {
-		vscode.commands.executeCommand("workbench.action.toggleSidebarVisibility");
-	}));
+    const rightSidebarToggleId = "toggleSidebars.toggleRightPanel";
+    subscriptions.push(vscode.commands.registerCommand(rightSidebarToggleId, () => {
+        vscode.commands.executeCommand("workbench.action.toggleAuxiliaryBar");
+    }));
+    rightSidebarToggleBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 1500);
+    rightSidebarToggleBarItem.command = rightSidebarToggleId;
+    subscriptions.push(rightSidebarToggleBarItem);
 
-	// create a new status bar item that we can now manage
-	toggleSidebarStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1500);
-	toggleSidebarStatusBarItem.command = myCommandId;
-	subscriptions.push(toggleSidebarStatusBarItem);
-
-	// register some listener that make sure the status bar 
-	// item always up-to-date
-	subscriptions.push(vscode.window.onDidChangeActiveTextEditor(updateStatusBarItem));
-	subscriptions.push(vscode.window.onDidChangeTextEditorSelection(updateStatusBarItem));
-
-	// update status bar item once at start
-	updateStatusBarItem();
+    // update status bar item once at start
+    updateStatusBarItem();
 }
 
 function updateStatusBarItem(): void {
-	toggleSidebarStatusBarItem.text = `$(three-bars)`;
-	toggleSidebarStatusBarItem.show();
+    leftSidebarToggleBarItem.text = `$(three-bars)`;
+    leftSidebarToggleBarItem.show();
+
+    rightSidebarToggleBarItem.text = `$(three-bars)`;
+    rightSidebarToggleBarItem.show();
 }
