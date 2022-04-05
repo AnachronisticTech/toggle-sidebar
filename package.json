@@ -2,7 +2,7 @@
 	"name": "toggle-sidebar",
 	"displayName": "Toggle Sidebar",
 	"description": "Toggles the sidebar via button in the status bar",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "anachronistic-tech",
 	"repository": {
 		"type": "git",
