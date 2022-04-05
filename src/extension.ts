@@ -11,9 +11,9 @@ let rightSidebarToggleBarItem: vscode.StatusBarItem;
 export function activate({ subscriptions }: vscode.ExtensionContext) {
     const leftSidebarToggleId = "toggleSidebars.toggleLeftPanel";
     subscriptions.push(vscode.commands.registerCommand(leftSidebarToggleId, () => {
-        // vscode.commands.executeCommand("workbench.action.toggleSidebarVisibility");
+        vscode.commands.executeCommand("workbench.action.toggleSidebarVisibility");
     }));
-    leftSidebarToggleBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1500);
+    leftSidebarToggleBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 15000);
     leftSidebarToggleBarItem.command = leftSidebarToggleId;
     subscriptions.push(leftSidebarToggleBarItem);
 
@@ -21,7 +21,7 @@ export function activate({ subscriptions }: vscode.ExtensionContext) {
     subscriptions.push(vscode.commands.registerCommand(rightSidebarToggleId, () => {
         vscode.commands.executeCommand("workbench.action.toggleAuxiliaryBar");
     }));
-    rightSidebarToggleBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 1500);
+    rightSidebarToggleBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 0);
     rightSidebarToggleBarItem.command = rightSidebarToggleId;
     subscriptions.push(rightSidebarToggleBarItem);
 
